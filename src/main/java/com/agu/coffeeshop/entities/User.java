@@ -1,7 +1,6 @@
 package com.agu.coffeeshop.entities;
 
 import com.agu.coffeeshop.entities.enums.UserStatus;
-import com.agu.coffeeshop.entities.enums.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,6 @@ public class User implements Identifiable {
 
     @Id
     private String id;
-    private UserType userType;
     private UserStatus userStatus;
     private String firstName;
     private String lastName;
@@ -31,4 +29,5 @@ public class User implements Identifiable {
     private String phoneNumber;
     private Instant createdDate;
     private Instant updatedDate;
+    private Double discount;
 }

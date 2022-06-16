@@ -1,5 +1,6 @@
 package com.agu.coffeeshop.entities;
 
+import com.agu.coffeeshop.entities.enums.ItemStatus;
 import com.agu.coffeeshop.entities.enums.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +20,11 @@ public class Item implements Identifiable {
 
     @Id
     private String id;
+    private String itemName;
     private ItemType ItemType;
-    private String name;
+    private ItemStatus itemStatus;
+    private Double price;
     private Instant createdDate;
     private Instant updatedDate;
+
 }
