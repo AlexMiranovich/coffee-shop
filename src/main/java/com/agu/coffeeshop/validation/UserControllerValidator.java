@@ -1,6 +1,6 @@
 package com.agu.coffeeshop.validation;
 
-import com.agu.coffeeshop.controllers.dto.UserUpsertDto;
+import com.agu.coffeeshop.controllers.dto.UserCreateDto;
 import com.agu.coffeeshop.exceptions.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -10,7 +10,7 @@ import static com.agu.coffeeshop.exceptions.ApiErrorCode.*;
 @Service
 public class UserControllerValidator {
 
-    public void validateCreateUser(UserUpsertDto createDto) {
+    public void validateCreateUser(UserCreateDto createDto) {
         if (!StringUtils.hasText(createDto.getFirstName()))
             throw new BadRequestException(EMPTY_FIRST_NAME.getDefaultMessage(), EMPTY_FIRST_NAME);
         if (!StringUtils.hasText(createDto.getLastName()))

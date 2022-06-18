@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ItemUpsertDto {
+public class ItemCreateDto {
+
     private ItemType ItemType;
     private String itemName;
     private Double price;

@@ -13,9 +13,10 @@ import java.time.Instant;
 @AllArgsConstructor
 @Builder
 public class ItemResponseDto {
+
     private String id;
     private ItemType ItemType;
-    private String name;
+    private String itemName;
     private Double price;
     private Instant createdDate;
 }

@@ -1,6 +1,6 @@
 package com.agu.coffeeshop.validation;
 
-import com.agu.coffeeshop.controllers.dto.ItemUpsertDto;
+import com.agu.coffeeshop.controllers.dto.ItemCreateDto;
 import com.agu.coffeeshop.exceptions.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -10,7 +10,7 @@ import static com.agu.coffeeshop.exceptions.ApiErrorCode.*;
 @Service
 public class ItemControllerValidator {
 
-    public void validateCreateItem(ItemUpsertDto createDto) {
+    public void validateCreateItem(ItemCreateDto createDto) {
         if (!StringUtils.hasText(String.valueOf(createDto.getItemType())))
             throw new BadRequestException(EMPTY_ITEM_TYPE.getDefaultMessage(), EMPTY_ITEM_TYPE);
         if (!StringUtils.hasText(createDto.getItemName()))

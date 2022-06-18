@@ -1,9 +1,9 @@
 package com.agu.coffeeshop.controllers;
 
+import com.agu.coffeeshop.controllers.dto.UserCreateDto;
 import com.agu.coffeeshop.controllers.dto.UserResponseDto;
-import com.agu.coffeeshop.controllers.dto.UserUpsertDto;
+import com.agu.coffeeshop.controllers.dto.UserUpdateDto;
 import com.agu.coffeeshop.entities.User;
-import com.agu.coffeeshop.services.BaseService;
 import com.agu.coffeeshop.services.UserService;
 import com.agu.coffeeshop.validation.UserControllerValidator;
 import org.modelmapper.ModelMapper;
@@ -17,22 +17,19 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final ModelMapper modelMapper;
-    private final BaseService<User> baseService;
     private final UserService userService;
     private final UserControllerValidator userControllerValidator;
 
     public UserController(ModelMapper modelMapper,
-                          BaseService<User> baseService,
                           UserService userService,
                           UserControllerValidator userControllerValidator) {
         this.modelMapper = modelMapper;
-        this.baseService = baseService;
         this.userService = userService;
         this.userControllerValidator = userControllerValidator;
     }
 
     @PostMapping
-    public UserResponseDto save(@RequestBody UserUpsertDto createDto) {
+    public UserResponseDto save(@RequestBody UserCreateDto createDto) {
         userControllerValidator.validateCreateUser(createDto);
         User newUser = modelMapper.map(createDto, User.class);
         User savedUser = userService.save(newUser);
@@ -41,25 +38,27 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserResponseDto get(@PathVariable String id) {
-        return modelMapper.map(baseService.findById(id), UserResponseDto.class);
+        return modelMapper.map(userService.findById(id), UserResponseDto.class);
     }
 
     @GetMapping("/all")
     public List<UserResponseDto> findAll() {
-        return baseService.findAll().stream()
+        return userService.findAll().stream()
                 .map(it -> modelMapper.map(it, UserResponseDto.class))
                 .collect(Collectors.toList());
     }
 
     @PutMapping
-    public UserResponseDto update(@RequestBody UserUpsertDto updateDto) {
-        return null;
+    public UserResponseDto update(@RequestBody UserUpdateDto updateDto) {
+        User updateUser = modelMapper.map(updateDto, User.class);
+        User updatedUser = userService.update(updateUser);
+        return modelMapper.map(updatedUser, UserResponseDto.class);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
-        User user = baseService.findById(id);
-        baseService.delete(user);
+        User user = userService.findById(id);
+        userService.delete(user);
     }
 
 }

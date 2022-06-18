@@ -1,26 +1,15 @@
 package com.agu.coffeeshop.services.impl;
 
 import com.agu.coffeeshop.entities.User;
-import com.agu.coffeeshop.entities.enums.UserStatus;
-import com.agu.coffeeshop.repositories.UserRepository;
+import com.agu.coffeeshop.repositories.impl.BaseRepository;
+import com.agu.coffeeshop.services.HistoryService;
 import com.agu.coffeeshop.services.UserService;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseService<User> implements UserService {
 
-    private final UserRepository userRepository;
-
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Override
-    public User save(User user) {
-        user.setUserStatus(UserStatus.ACTIVE);
-        user.setCreatedDate(Instant.now());
-        return userRepository.save(user);
+    public UserServiceImpl(BaseRepository<User> baseRepository, HistoryService historyService) {
+        super(baseRepository, historyService);
     }
 }

@@ -29,7 +29,8 @@ public class MongoConfigs extends AbstractMongoClientConfiguration {
 
     @Bean
     public MongoClient mongoClient() {
-        ConnectionString connectionString = new ConnectionString(mongoProperties.getUri() + "/" + getDatabaseName());
+        ConnectionString connectionString = new ConnectionString(mongoProperties.getUri() + "/" + getDatabaseName()
+);
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
