@@ -1,11 +1,21 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'alpine:latest'
+        }
+    }
     stages {
-        stage('Hello') {
+        stage('Create Text File') {
             steps {
-                echo 'firstjob'
+                script {
+                    sh 'echo "Hello, World!" > output.txt'
+                }
             }
+        }
+    }
+    post {
+        success {
+            archiveArtifacts 'output.txt'
         }
     }
 }
